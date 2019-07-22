@@ -39,8 +39,9 @@ _test-version:
 			curl -L -sS  https://github.com/PyCQA/pylint/releases/ \
 				| tac | tac \
 				| grep -Eo "PyCQA/pylint/releases/tag/(pylint-)?[.0-9]+" \
-				| head -1 \
 				| sed 's/.*tag\///g' \
+				| sort -u \
+				| tail -1 \
 				| grep -Eo '[.0-9]+' \
 		)"; \
 		echo "Testing for latest: $${LATEST}"; \
