@@ -1,4 +1,4 @@
-FROM alpine:3.9 as builder
+FROM alpine:3.11 as builder
 
 RUN set -x \
 	&& apk add --no-cache \
@@ -22,7 +22,7 @@ RUN set -x \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
 
 
-FROM alpine:3.9 as production
+FROM alpine:3.11 as production
 LABEL \
 	maintainer="cytopia <cytopia@everythingcli.org>" \
 	repo="https://github.com/cytopia/docker-pylint"
@@ -31,7 +31,7 @@ RUN set -x \
 	&& ln -sf /usr/bin/python3 /usr/bin/python \
 	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
-COPY --from=builder /usr/lib/python3.6/site-packages/ /usr/lib/python3.6/site-packages/
+COPY --from=builder /usr/lib/python3.8/site-packages/ /usr/lib/python3.8/site-packages/
 COPY --from=builder /usr/bin/pylint /usr/bin/pylint
 WORKDIR /data
 ENTRYPOINT ["pylint"]
