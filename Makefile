@@ -72,6 +72,7 @@ _test-version:
 		LATEST="$$( \
 			curl -L -sS  https://github.com/PyCQA/pylint/releases/ \
 				| tac | tac \
+				| grep -Eo 'PyCQA/pylint/releases/tag/(pylint-)?[.0-9]+"' \
 				| grep -Eo "PyCQA/pylint/releases/tag/(pylint-)?[.0-9]+" \
 				| sed 's/.*tag\///g' \
 				| sort -u \
