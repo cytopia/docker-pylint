@@ -30,7 +30,45 @@ help:
 # --------------------------------------------------------------------------------------------------
 # Lint Targets
 # --------------------------------------------------------------------------------------------------
-lint:
+lint: _lint-files
+lint: _lint-workflow
+
+.PHONY: _lint-workflow
+_lint-workflow:
+	@echo "################################################################################"
+	@echo "# Lint Workflow"
+	@echo "################################################################################"
+	@\
+	GIT_CURR_MAJOR="$$( git tag | sort -V | tail -1 | sed 's|\.[0-9]*$$||g' )"; \
+	GIT_CURR_MINOR="$$( git tag | sort -V | tail -1 | sed 's|^[0-9]*\.||g' )"; \
+	GIT_NEXT_TAG="$${GIT_CURR_MAJOR}.$$(( GIT_CURR_MINOR + 1 ))"; \
+	AVAILABLE_REFS="$$( \
+		grep 'refs:' -A 100 .github/workflows/nightly.yml \
+		| grep 'steps:' -B 100 \
+		| grep -E '[[:space:]]+\-' \
+		| sed 's/.*\s//g' \
+		| sed "s/'//g" \
+		| sed 's/"//g' \
+		| grep -v master || true \
+	)"; \
+	if [ -n "$${AVAILABLE_REFS}" ]; then \
+		if ! grep 'refs:' -A 100 .github/workflows/nightly.yml \
+			| grep  "          - '$${GIT_NEXT_TAG}'" >/dev/null; then \
+			echo "[ERR] New Tag required in .github/workflows/nightly.yml: $${GIT_NEXT_TAG}"; \
+				exit 1; \
+			else \
+			echo "[OK] Git Tag present in .github/workflows/nightly.yml: $${GIT_NEXT_TAG}"; \
+		fi \
+	else \
+		echo "[OK] No Tags defined at all in .github/workflows/nightly.yml"; \
+	fi
+	@echo
+
+.PHONY: lint-files
+_lint-files:
+	@echo "################################################################################"
+	@echo "# Lint Files"
+	@echo "################################################################################"
 	@docker run --rm -v $(CURRENT_DIR):/data cytopia/file-lint file-cr --text --ignore '.git/,.github/,tests/' --path .
 	@docker run --rm -v $(CURRENT_DIR):/data cytopia/file-lint file-crlf --text --ignore '.git/,.github/,tests/' --path .
 	@docker run --rm -v $(CURRENT_DIR):/data cytopia/file-lint file-trailing-single-newline --text --ignore '.git/,.github/,tests/' --path .
@@ -72,6 +110,7 @@ _test-version:
 		LATEST="$$( \
 			curl -L -sS  https://github.com/PyCQA/pylint/releases/ \
 				| tac | tac \
+				| grep -Eo 'PyCQA/pylint/releases/tag/(pylint-)?[.0-9]+"' \
 				| grep -Eo "PyCQA/pylint/releases/tag/(pylint-)?[.0-9]+" \
 				| sed 's/.*tag\///g' \
 				| sort -u \
