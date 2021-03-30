@@ -41,8 +41,9 @@ LABEL "org.opencontainers.image.title"="pylint ${VERSION}"
 LABEL "org.opencontainers.image.description"="pylint ${VERSION}"
 
 RUN set -x \
-	&& apk add --no-cache python3 \
+	&& apk add --no-cache python3 py3-pip \
 	&& ln -sf /usr/bin/python3 /usr/bin/python \
+	&& ln -sf /usr/bin/pip3 /usr/bin/pip \
 	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
 
