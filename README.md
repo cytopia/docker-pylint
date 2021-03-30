@@ -56,9 +56,25 @@ The image is built nightly against multiple stable versions and pushed to Docker
 
 ## Available Docker image versions
 
+#### Rolling releaess
+
+The following Docker image tags are rolling releases and are built and updated every night.
+
+[![nightly](https://github.com/cytopia/docker-pylint/workflows/nightly/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Anightly)
+
 | Docker tag | Build from |
 |------------|------------|
 | `latest`   | Latest stable pylint version |
+
+#### Point in time releases
+
+The following Docker image tags are built once and can be used for reproducible builds. Its version never changes so you will have to update tags in your pipelines from time to time in order to stay up-to-date.
+
+[![build](https://github.com/cytopia/docker-pylint/workflows/build/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Abuild)
+
+| Docker tag      | Explanation |
+|-----------------|-------------|
+| `latest-<TAG>`  | Latest stable version when this repository was git tagged |
 
 
 ## Docker mounts
