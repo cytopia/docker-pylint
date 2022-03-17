@@ -113,7 +113,7 @@ _test-version:
 				| grep -Eo 'PyCQA/pylint/releases/tag/(pylint-)?(v)?[.0-9]+"' \
 				| grep -Eo "PyCQA/pylint/releases/tag/(pylint-)?(v)?[.0-9]+" \
 				| sed 's/.*tag\///g' \
-				| sort -u \
+				| sort -V \
 				| tail -1 \
 				| grep -Eo '[.0-9]+' \
 		)"; \
