@@ -1,4 +1,4 @@
-FROM alpine:3.13 as builder
+FROM alpine:3.15 as builder
 
 RUN set -x \
 	&& apk add --no-cache \
@@ -23,7 +23,7 @@ RUN set -x \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
 
 
-FROM alpine:3.13 as production
+FROM alpine:3.15 as production
 ARG VERSION
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 #LABEL "org.opencontainers.image.created"=""
