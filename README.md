@@ -1,15 +1,13 @@
 # Docker image for `pylint`
 
 [![Tag](https://img.shields.io/github/tag/cytopia/docker-pylint.svg)](https://github.com/cytopia/docker-pylint/releases)
-[![](https://images.microbadger.com/badges/version/cytopia/pylint:latest.svg?kill_cache=1)](https://microbadger.com/images/cytopia/pylint:latest "pylint")
-[![](https://images.microbadger.com/badges/image/cytopia/pylint:latest.svg?kill_cache=1)](https://microbadger.com/images/cytopia/pylint:latest "pylint")
-[![](https://img.shields.io/docker/pulls/cytopia/pylint.svg)](https://hub.docker.com/r/cytopia/pylint)
 [![](https://img.shields.io/badge/github-cytopia%2Fdocker--pylint-red.svg)](https://github.com/cytopia/docker-pylint "github.com/cytopia/docker-pylint")
 [![License](https://img.shields.io/badge/license-MIT-%233DA639.svg)](https://opensource.org/licenses/MIT)
 
 [![lint](https://github.com/cytopia/docker-pylint/workflows/lint/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Alint)
 [![build](https://github.com/cytopia/docker-pylint/workflows/build/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Abuild)
 [![nightly](https://github.com/cytopia/docker-pylint/workflows/nightly/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Anightly)
+
 
 > #### All [#awesome-ci](https://github.com/topics/awesome-ci) Docker images
 >
@@ -41,21 +39,20 @@
 > [yamlfmt][yfmt-git-lnk] **•**
 > [yamllint][ylint-git-lnk]
 
-> #### All [#awesome-ci](https://github.com/topics/awesome-ci) Makefiles
->
-> Visit **[cytopia/makefiles](https://github.com/cytopia/makefiles)** for seamless project integration, minimum required best-practice code linting and CI.
+View **[Dockerfiles](https://github.com/cytopia/docker-pylint/blob/master/Dockerfiles/)** on GitHub.
 
-View **[Dockerfile](https://github.com/cytopia/docker-pylint/blob/master/Dockerfile)** on GitHub.
 
-[![Docker hub](http://dockeri.co/image/cytopia/pylint?kill_cache=1)](https://hub.docker.com/r/cytopia/pylint)
+**Available Architectures:**  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`
 
 Tiny Alpine-based multistage-build dockerized version of [pylint](https://github.com/PyCQA/pylint)<sup>[1]</sup>.
 The image is built nightly against multiple stable versions and pushed to Dockerhub.
 
 <sup>[1] Official project: https://github.com/PyCQA/pylint</sup>
 
+## :whale: Available Docker image versions
 
-## Available Docker image versions
+[![](https://img.shields.io/docker/pulls/cytopia/pylint.svg)](https://hub.docker.com/r/cytopia/pylint)
+[![Docker](https://badgen.net/badge/icon/:latest?icon=docker&label=cytopia/pylint)](https://hub.docker.com/r/cytopia/pylint)
 
 #### Rolling releaess
 
@@ -63,9 +60,10 @@ The following Docker image tags are rolling releases and are built and updated e
 
 [![nightly](https://github.com/cytopia/docker-pylint/workflows/nightly/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Anightly)
 
-| Docker tag | Build from |
-|------------|------------|
-| `latest`   | Latest stable pylint version |
+| Docker Tag           | Git Ref   | pylint       | Available Architectures                      |
+|----------------------|-----------|--------------|----------------------------------------------|
+| `latest`             | master    | latest       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
+| `2`                  | master    | **`2.x.x`**  | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
 
 #### Point in time releases
 
@@ -73,18 +71,21 @@ The following Docker image tags are built once and can be used for reproducible 
 
 [![build](https://github.com/cytopia/docker-pylint/workflows/build/badge.svg)](https://github.com/cytopia/docker-pylint/actions?query=workflow%3Abuild)
 
-| Docker tag      | Explanation |
-|-----------------|-------------|
-| `latest-<TAG>`  | Latest stable version when this repository was git tagged |
+| Docker Tag           | Git Ref      | pylint       | Available Architectures                      |
+|----------------------|--------------|--------------|----------------------------------------------|
+| `latest-<tag>`       | tag: `<tag>` | latest       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
+| `2-<tag>`            | tag: `<tag>` | **`2.x.x`**  | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
+
+> Where `<tag>` refers to the chosen git tag from this repository.
 
 
-## Docker mounts
+## :open_file_folder: Docker mounts
 
 The working directory inside the Docker container is **`/data/`** and should be mounted locally to
 the root of your project where your `setup.cfg` or `tox.ini` config file is.
 
 
-## Usage
+## :computer: Usage
 
 ```bash
 docker run --rm -v $(pwd):/data cytopia/pylint .
@@ -244,7 +245,8 @@ Visit **[cytopia/makefiles](https://github.com/cytopia/makefiles)** for dependen
 The provided Makefiles will only require GNU Make and Docker itself removing the need to install anything else.
 
 
-## License
+## :page_facing_up: License
+
 
 **[MIT License](LICENSE)**
 

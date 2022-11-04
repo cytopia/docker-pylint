@@ -122,14 +122,14 @@ _test-version:
 				| grep -Eo '[.0-9]+' \
 		)"; \
 		echo "Testing for latest: $${LATEST}"; \
-		if ! docker run --rm --platform $(ARCH) $(IMAGE):$(DOCKER_TAG) --version | grep -E "$${LATEST}$$"; then \
+		if ! docker run --rm --platform $(ARCH) $(IMAGE):$(DOCKER_TAG) --version | grep -E "^(pylint\s)?$${LATEST}$$"; then \
 			docker run --rm --platform $(ARCH) $(IMAGE):$(DOCKER_TAG) --version; \
 			echo "Failed"; \
 			exit 1; \
 		fi; \
 	else \
 		echo "Testing for tag: $(VERSION)"; \
-		if ! docker run --rm --platform $(ARCH) $(IMAGE):$(DOCKER_TAG) --version | grep -E "^$(VERSION)"; then \
+		if ! docker run --rm --platform $(ARCH) $(IMAGE):$(DOCKER_TAG) --version | grep -E "^(pylint\s)?$(VERSION)"; then \
 			docker run --rm --platform $(ARCH) $(IMAGE):$(DOCKER_TAG) --version; \
 			echo "Failed"; \
 			exit 1; \
