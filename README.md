@@ -42,7 +42,7 @@
 View **[Dockerfiles](https://github.com/cytopia/docker-pylint/blob/master/Dockerfiles/)** on GitHub.
 
 
-**Available Architectures:**  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`
+**Available Architectures:**  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`
 
 Tiny Alpine-based multistage-build dockerized version of [pylint](https://github.com/PyCQA/pylint)<sup>[1]</sup>.
 The image is built nightly against multiple stable versions and pushed to Dockerhub.
@@ -62,8 +62,8 @@ The following Docker image tags are rolling releases and are built and updated e
 
 | Docker Tag           | Git Ref   | pylint       | Available Architectures                      |
 |----------------------|-----------|--------------|----------------------------------------------|
-| `latest`             | master    | latest       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
-| `2`                  | master    | **`2.x.x`**  | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
+| `latest`             | master    | latest       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x` |
+| `2`                  | master    | **`2.x.x`**  | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x` |
 
 #### Point in time releases
 
@@ -73,8 +73,8 @@ The following Docker image tags are built once and can be used for reproducible 
 
 | Docker Tag           | Git Ref      | pylint       | Available Architectures                      |
 |----------------------|--------------|--------------|----------------------------------------------|
-| `latest-<tag>`       | tag: `<tag>` | latest       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
-| `2-<tag>`            | tag: `<tag>` | **`2.x.x`**  | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6` |
+| `latest-<tag>`       | tag: `<tag>` | latest       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x` |
+| `2-<tag>`            | tag: `<tag>` | **`2.x.x`**  | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x` |
 
 > Where `<tag>` refers to the chosen git tag from this repository.
 
