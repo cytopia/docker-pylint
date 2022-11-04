@@ -1,8 +1,7 @@
-FROM alpine:3.15 as builder
+FROM alpine:3.16 as builder
 
 RUN set -x \
 	&& apk add --no-cache \
-		bc \
 		gcc \
 		libffi-dev \
 		make \
@@ -17,13 +16,16 @@ RUN set -x \
 	&& if [ "${VERSION}" = "latest" ]; then \
 		pip3 install --no-cache-dir --no-compile pylint; \
 	else \
-		pip3 install --no-cache-dir --no-compile "pylint>=${VERSION},<$(echo "${VERSION}+0.1" | bc)"; \
+		pip3 install --no-cache-dir --no-compile pylint~=${VERSION}.0; \
 	fi \
+	\
+	&& pylint --version \
+	\
 	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
 
 
-FROM alpine:3.15 as production
+FROM alpine:3.16 as production
 ARG VERSION
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 #LABEL "org.opencontainers.image.created"=""
@@ -41,14 +43,15 @@ LABEL "org.opencontainers.image.title"="pylint ${VERSION}"
 LABEL "org.opencontainers.image.description"="pylint ${VERSION}"
 
 RUN set -x \
-	&& apk add --no-cache python3 py3-pip \
+	&& apk add --no-cache \
+		python3 \
 	&& ln -sf /usr/bin/python3 /usr/bin/python \
-	&& ln -sf /usr/bin/pip3 /usr/bin/pip \
 	&& find /usr/lib/ -name '__pycache__' -print0 | xargs -0 -n1 rm -rf \
 	&& find /usr/lib/ -name '*.pyc' -print0 | xargs -0 -n1 rm -rf
 
-COPY --from=builder /usr/lib/python3.9/site-packages/ /usr/lib/python3.9/site-packages/
+COPY --from=builder /usr/lib/python3.10/site-packages/ /usr/lib/python3.10/site-packages/
 COPY --from=builder /usr/bin/pylint /usr/bin/pylint
+
 WORKDIR /data
 ENTRYPOINT ["pylint"]
 CMD ["--version"]
