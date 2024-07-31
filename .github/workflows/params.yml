@@ -19,10 +19,12 @@ env:
             "2"
         ],
         "FLAVOUR": ["latest"],
-        "ARCH":    ["linux/amd64", "linux/386", "linux/arm64", "linux/arm/v7", "linux/arm/v6", "linux/ppc64le", "linux/s390x"],
+        "ARCH":    ["linux/arm64/v8"],
         "FILE":  ["py38", "py39", "py310", "py311", "py312"]
       }
     ]
+
+#"ARCH":    ["linux/amd64", "linux/386", "linux/arm64", "linux/arm/v7", "linux/arm/v6", "linux/ppc64le", "linux/s390x"],
 
 # -------------------------------------------------------------------------------------------------
 # When to run
